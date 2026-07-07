@@ -1,100 +1,100 @@
 from database.conexion import Conexion
-from models.libro import Libro
+from models.usuario import Usuario
 
-class LibroDAO:
+class UsuarioDAO:
 
-    #SELCT * from
     #==========================================================================================
 
     def obtener_todo(self):
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
-        cursor.execute("SELECT * FROM vista_libros")
+        cursor.execute("SELECT * FROM vista_usuarios")
         registros = cursor.fetchall()
 
-        libros = []
+        usuarios = []
         for registro in registros:
-            libro = Libro(
+            usuario = Usuario(
                 id = registro[0],
-                titulo= registro[1],
-                autor = registro[2],
-                isbn = registro[3],
-                disponible= registro[4]
+                nombre= registro[1],
+                matricula = registro[2],
+                carrera = registro[3],
+                correo= registro[4],
+                activo= registro[5]
             )
-            libros.append(libro)
+            usuarios.append(usuario)
         cursor.close()
         conexion.close()
-        return libros 
+        return usuarios 
     
     #==========================================================================================
     
-    def insertar(self, libro):
+    def insertar(self, usuario):
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
         sql = """
-        INSERT INTO libro(id, titulo, autor, isbn, disponible)
-        VALUES(%s, %s, %s, %s, %s)
+        INSERT INTO usuario(id, nombre, matricula, carrera, correo, activo)
+        VALUES(%s, %s, %s, %s, %s, %s)
         """
 
         cursor.execute(sql, (
-            libro.id,
-            libro.titulo,
-            libro.autor,
-            libro.isbn,
-            libro.disponible
+            usuario.id,
+            usuario.nombre,
+            usuario.matricula,
+            usuario.carrera,
+            usuario.correo,
+            usuario.activo
+            
         ))
 
         conexion.commit()
         cursor.close()
         conexion.close()
 
-        #UPDATE
-        #==========================================================================================
+    #==========================================================================================
 
-    def actualizar(self, libro):
+    def actualizar(self, usuario):
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
         sql = """
-        UPDATE libro
-        SET titulo = %s, autor = %s, isbn = %s, disponible = %s
+        UPDATE usuario
+        SET nombre = %s, carrera = %s, correo = %s, activo = %s
         WHERE id = %s
         """
         
         cursor.execute(sql, (
-                        libro.titulo,
-                        libro.autor,
-                        libro.isbn,
-                        libro.disponible,
-                        libro.id
+                        usuario.nombre,
+                        usuario.carrera,
+                        usuario.correo,
+                        usuario.activo,
+                        usuario.id
                         ))
 
         conexion.commit()
         cursor.close()
         conexion.close()
 
-    # DELATE
     #==========================================================================================
 
     def eliminar(self,id):
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
-        cursor.execute("DELETE FROM libro WHERE id = %s", (id,))
+        cursor.execute("DELETE FROM usuario WHERE id = %s", (id,))
 
         conexion.commit()
         cursor.close()
         conexion.close()
 
-        #==========================================================================================
+    #==========================================================================================
 
     def obtener_ultimo_id(self):
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
-        cursor.execute("SELECT MAX(id) FROM libro")
+        cursor.execute("SELECT MAX(id) FROM usuario")
         resultado = cursor.fetchone()
 
         cursor.close()
@@ -103,4 +103,6 @@ class LibroDAO:
         if resultado[0] is None:
             return 0
         return resultado[0]
+    #==========================================================================================
+
 

@@ -2,7 +2,9 @@
 #==========================================================================================
 
 #Libro
+import flet as ft
 
+from ui.main_window import main_window
 from dao.libro_dao import LibroDAO
 from models.libro import Libro
 from dao.usuario_dao import UsuarioDAO
@@ -195,18 +197,19 @@ def menu_usuarios():
 
 #==========================================================================================
 
-def main():
-    print("=== BIBLIOTECA UNIVERSITARIA ===")
-    print("Menu de opciones:")
-    print("1. Libros")
-    print("2. Usuarios")
-    opcion = int(input("Escribe tu opcion: "))
-    match opcion:
-        case 1: menu_libros()
-        case 2: menu_usuarios()
+ft.app(target=main_window)
+# def main():
+#     print("=== BIBLIOTECA UNIVERSITARIA ===")
+#     print("Menu de opciones:")
+#     print("1. Libros")
+#     print("2. Usuarios")
+#     opcion = int(input("Escribe tu opcion: "))
+#     match opcion:
+#         case 1: menu_libros()
+#         case 2: menu_usuarios()
 
-    print("Saliendo del sistema de Biblioteca universitaria....")
+#     print("Saliendo del sistema de Biblioteca universitaria....")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#  main()

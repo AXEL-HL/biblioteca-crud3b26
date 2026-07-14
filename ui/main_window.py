@@ -53,11 +53,6 @@ def main_window(page: ft.Page):
                     size = 12,
                     color = ft.Colors.WHITE
                 ),
-                ft.Text(
-                    "Sistema de Gestion",
-                    size = 12,
-                    color = ft.Colors.WHITE
-                ),
                 ft.Divider(color=ft.Colors.BLUE_GREY_700),
                 #botones
                 ft.ElevatedButton(

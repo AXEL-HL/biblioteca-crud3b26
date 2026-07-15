@@ -1,5 +1,7 @@
 import flet as ft
 
+from ui.libro_form import libro_form
+
 def main_window(page: ft.Page):
     # Configurar pagina
     page.title = "Sistema de Gestion de Biblioteca"
@@ -35,6 +37,10 @@ def main_window(page: ft.Page):
         expand = True
     )
 
+    def mostrar_formulario_libro(e):
+        contenido.content = libro_form()
+        page.update()
+
     # Creacion del menu lateral
     menu_lateral = ft.Container(
         width= 220,
@@ -58,7 +64,8 @@ def main_window(page: ft.Page):
                 ft.ElevatedButton(
                     "Libros",
                     icon=ft.Icons.BOOK,
-                    width = 180
+                    width = 180,
+                    on_click= mostrar_formulario_libro
                 ),
                 ft.ElevatedButton(
                     "Usuarios",
